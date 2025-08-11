@@ -47,11 +47,11 @@ class CensysAnalyzer(Analyzer):
             "web.cert.parsed.signature.self_signed",
             "web.cert.parsed.subject.common_name",
             "web.cert.parsed.issuer.common_name",
-            "cert.valided_at",
-            "cert.names",
-            "cert.parsed.subject_dn",
-            "cert.fingerprint_sha1",
-            "cert.fingerprint_sha256",
+            "certificate.certificate.validated_at",
+            "certificate.certificate.names",
+            "certificate.certificate.parsed.subject_dn",
+            "certificate.certificate.fingerprint_sha1",
+            "certificate.certificate.fingerprint_sha256",
         ]
 
         with sdk_client as platform:
