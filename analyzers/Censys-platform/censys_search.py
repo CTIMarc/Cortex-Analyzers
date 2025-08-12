@@ -38,6 +38,7 @@ class CensysAnalyzer(Analyzer):
         sdk_client = self.SDK
         fields = [
             "host.services.port",
+            "host.services.scan_time",
             "host.ip",
             "host.services.cert.parsed.signature.self_signed",
             "host.services.cert.parsed.issuer.common_name",
@@ -86,7 +87,7 @@ class CensysAnalyzer(Analyzer):
                     "Data type not supported. Please use this analyzer with data types hash, ip or domain."
                 )
         except Exception as e:
-            self.report({"message": f"Error: {repr(e)}."})
+            self.error({"message": f"Error: {e}."})
 
     def summary(self, raw):
         taxonomies = []
