@@ -44,6 +44,7 @@ class CensysAnalyzer(Analyzer):
             "host.services.cert.parsed.issuer.common_name",
             "host.services.cert.parsed.subject.common_name",
             "web.hostname",
+            "web.scan_time",
             "web.ip",
             "web.cert.parsed.signature.self_signed",
             "web.cert.parsed.subject.common_name",
