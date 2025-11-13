@@ -39,6 +39,7 @@ class CensysAnalyzer(Analyzer):
         fields = [
             "host.services.port",
             "host.services.protocol",
+            "host.services.scan_time",
             "host.ip",
             "host.services.cert.parsed.signature.self_signed",
             "host.services.cert.parsed.issuer.common_name",
