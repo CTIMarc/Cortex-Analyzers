@@ -18,7 +18,7 @@ class CurstomProxy(Analyzer):
             "No base URL configuration in Cortex.",
         )
 
-    def do_request(self, method, module, url, headers, post_data):
+    def do_request(self, method, module, url, headers, post_data, post_data_hex):
         try:
             if method == "GET":
                 req = requests.get(
@@ -26,10 +26,14 @@ class CurstomProxy(Analyzer):
                 )
                 req.raise_for_status()
             elif method == "POST":
+                if post_data:
+                    data = post_data
+                elif post_data_hex:
+                    data = bytes.fromhex(post_data_hex)
                 req = requests.post(
                     self.base_url + module + "/" + url,
                     headers=headers,
-                    data=post_data,
+                    data=data,
                     timeout=30,
                 )
                 req.raise_for_status()
@@ -71,7 +75,10 @@ class CurstomProxy(Analyzer):
             url = self.get_param("data", None, "Data param is missing")
             headers = self.get_param("parameters.headers", default={})
             post_data = self.get_param("parameters.post_data", default={})
-            self.report(self.do_request(method, module, url, headers, post_data))
+            post_data_hex = self.get_param("parameters.post_data_hex", default={})
+            self.report(
+                self.do_request(method, module, url, headers, post_data, post_data_hex)
+            )
         except Exception as e:
             self.unexpectedError(e)
 
