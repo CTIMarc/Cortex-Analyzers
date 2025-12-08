@@ -44,6 +44,7 @@ class CensysAnalyzer(Analyzer):
             "host.services.cert.parsed.signature.self_signed",
             "host.services.cert.parsed.issuer.common_name",
             "host.services.cert.parsed.subject.common_name",
+            "host.services.cert.validation_level",
             "web.hostname",
             "web.ip",
             "web.cert.parsed.signature.self_signed",
