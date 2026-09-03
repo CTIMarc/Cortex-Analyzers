@@ -7,6 +7,7 @@
   "description": "Retrieve key Shodan information on a domain.",
   "dataTypeList": ["domain", "fqdn"],
   "command": "Shodan/shodan_analyzer.py",
+  "dockerImage": "shodan:1.0",
   "baseConfig": "Shodan",
   "config": {
       "service": "info_domain"

@@ -1,6 +1,3 @@
-cortexutils
-future
-requests
-vt-py
-python-magic
-filetype
+cortexutils==2.2.1
+requests==2.34.2
+virustotal-api==1.1.11

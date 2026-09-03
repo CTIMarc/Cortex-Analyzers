@@ -8,6 +8,7 @@
   "description": "Search a filter in subrequests",
   "dataTypeList": ["other"],
   "command": "Urlscan.io/urlscan_analyzer.py",
+  "dockerImage": "urlscan.io:0.1",
   "config": {
     "service":"search_subrequests"
   },
