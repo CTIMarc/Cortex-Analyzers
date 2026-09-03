@@ -1,2 +1,2 @@
-cortexutils
-censys-platform
+cortexutils==2.2.1
+censys-platform==0.16.1

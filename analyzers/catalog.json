@@ -270,6 +270,39 @@
 }
 ,
 {
+  "name": "Censys_platform_search",
+  "author": "Marc Nebout, SEKOIA",
+  "version": "1.0",
+  "license": "AGPL-V3",
+  "url": "https://github.com/CTIMarc/Cortex-Analyzers/tree/master/analyzers/Censys-platform",
+  "description": "Search pattern in Censys platform",
+  "dataTypeList": [
+    "other",
+    "ip",
+    "domain"
+  ],
+  "baseConfig": "Censys Platform",
+  "command": "Censys-platform/censys_search.py",
+  "dockerImage": "censys-platform:1.0",
+  "configurationItems": [
+    {
+      "name": "oid",
+      "description": "Organization ID in Censys",
+      "type": "string",
+      "multi": false,
+      "required": true
+    },
+    {
+      "name": "key",
+      "description": "API key",
+      "type": "string",
+      "multi": false,
+      "required": true
+    }
+  ]
+}
+,
+{
   "name": "Crt_sh_Transparency_Logs",
   "author": "crackytsi",
   "license": "AGPL-V3",
@@ -376,6 +409,31 @@
     }
   ],
   "dockerImage": "cortexneurons/cuckoosandbox_url_analysis:1"
+}
+,
+{
+  "name": "CustomProxy",
+  "author": "CTIMarc",
+  "license": "AGPL-V3",
+  "url": "https://github.com/CTIMarc/Cortex-Analyzers",
+  "version": "1.0",
+  "baseConfig": "CustomProxy",
+  "config": {},
+  "description": "Query a custom proxy",
+  "dataTypeList": [
+    "url"
+  ],
+  "command": "CustomProxy/custom_proxy.py",
+  "dockerImage": "customproxy:1.0",
+  "configurationItems": [
+    {
+      "name": "base_url",
+      "description": "Base url of the proxy",
+      "type": "string",
+      "multi": false,
+      "required": true
+    }
+  ]
 }
 ,
 {
@@ -2800,6 +2858,30 @@
 }
 ,
 {
+  "name": "PublicWWW_Search",
+  "author": "CTI_Marc",
+  "license": "MIT",
+  "url": "https://github.com/CTIMarc/Cortex-Analyzers",
+  "version": "0.1.1",
+  "baseConfig": "PublicWWW",
+  "description": "Search pattern on publicWWW",
+  "dataTypeList": [
+    "other"
+  ],
+  "command": "PublicWWW/publicwww_analyzer.py",
+  "dockerImage": "publicwww:0.1.1",
+  "configurationItems": [
+    {
+      "name": "api_key",
+      "description": "API Key",
+      "type": "string",
+      "multi": false,
+      "required": true
+    }
+  ]
+}
+,
+{
   "name": "Pulsedive_GetIndicator",
   "version": "1.0",
   "author": "Nils Kuhnert",
@@ -2962,8 +3044,11 @@
   "license": "AGPL-V3",
   "description": "Retrieve domain resolutions on Shodan.",
   "dataTypeList": [
-    "domain"
+    "domain",
+    "fqdn"
   ],
+  "command": "Shodan/shodan_analyzer.py",
+  "dockerImage": "shodan:1.0",
   "baseConfig": "Shodan",
   "config": {
     "service": "dns_resolve"
@@ -2976,8 +3061,7 @@
       "multi": false,
       "required": true
     }
-  ],
-  "dockerImage": "cortexneurons/shodan_dnsresolve:1"
+  ]
 }
 ,
 {
@@ -2990,6 +3074,8 @@
   "dataTypeList": [
     "ip"
   ],
+  "command": "Shodan/shodan_analyzer.py",
+  "dockerImage": "shodan:1.0",
   "baseConfig": "Shodan",
   "config": {
     "service": "host"
@@ -3002,8 +3088,7 @@
       "multi": false,
       "required": true
     }
-  ],
-  "dockerImage": "cortexneurons/shodan_host:1"
+  ]
 }
 ,
 {
@@ -3016,6 +3101,8 @@
   "dataTypeList": [
     "ip"
   ],
+  "command": "Shodan/shodan_analyzer.py",
+  "dockerImage": "shodan:1.0",
   "baseConfig": "Shodan",
   "config": {
     "service": "host_history"
@@ -3028,8 +3115,7 @@
       "multi": false,
       "required": true
     }
-  ],
-  "dockerImage": "cortexneurons/shodan_host_history:1"
+  ]
 }
 ,
 {
@@ -3040,8 +3126,11 @@
   "license": "AGPL-V3",
   "description": "Retrieve key Shodan information on a domain.",
   "dataTypeList": [
-    "domain"
+    "domain",
+    "fqdn"
   ],
+  "command": "Shodan/shodan_analyzer.py",
+  "dockerImage": "shodan:1.0",
   "baseConfig": "Shodan",
   "config": {
     "service": "info_domain"
@@ -3054,8 +3143,7 @@
       "multi": false,
       "required": true
     }
-  ],
-  "dockerImage": "cortexneurons/shodan_infodomain:1"
+  ]
 }
 ,
 {
@@ -3068,6 +3156,8 @@
   "dataTypeList": [
     "ip"
   ],
+  "command": "Shodan/shodan_analyzer.py",
+  "dockerImage": "shodan:1.0",
   "baseConfig": "Shodan",
   "config": {
     "service": "reverse_dns"
@@ -3080,8 +3170,7 @@
       "multi": false,
       "required": true
     }
-  ],
-  "dockerImage": "cortexneurons/shodan_reversedns:1"
+  ]
 }
 ,
 {
@@ -3094,6 +3183,8 @@
   "dataTypeList": [
     "other"
   ],
+  "command": "Shodan/shodan_analyzer.py",
+  "dockerImage": "shodan:2.0",
   "baseConfig": "Shodan",
   "config": {
     "service": "search"
@@ -3106,8 +3197,7 @@
       "multi": false,
       "required": true
     }
-  ],
-  "dockerImage": "cortexneurons/shodan_search:2"
+  ]
 }
 ,
 {
@@ -3483,19 +3573,90 @@
 }
 ,
 {
+  "name": "Urlscan.io_Scan",
+  "author": "ninoseki, Kyle Parrish (@arnydo)",
+  "license": "MIT",
+  "url": "https://github.com/arnydo/Cortex-Analyzers",
+  "version": "0.1.0",
+  "description": "Scan URLs on urlscan.io",
+  "dataTypeList": [
+    "url",
+    "domain",
+    "fqdn"
+  ],
+  "command": "Urlscan.io/urlscan_analyzer.py",
+  "dockerImage": "urlscan.io:0.1.0",
+  "baseConfig": "Urlscan.io",
+  "config": {
+    "service": "scan"
+  },
+  "configurationItems": [
+    {
+      "name": "key",
+      "description": "API key for Urlscan.io",
+      "type": "string",
+      "multi": false,
+      "required": true
+    }
+  ]
+}
+,
+{
   "name": "Urlscan.io_Search",
-  "author": "ninoseki",
+  "author": "ninoseki, CTI_Marc",
   "license": "MIT",
   "url": "https://github.com/ninoseki/cortex_urlscan_analyzer",
-  "version": "0.1.0",
+  "version": "0.1.2",
+  "baseConfig": "Urlscan.io",
   "description": "Search IPs, domains, hashes or URLs on urlscan.io",
   "dataTypeList": [
     "ip",
     "domain",
     "hash",
-    "url"
+    "url",
+    "other"
   ],
-  "dockerImage": "cortexneurons/urlscan.io_search:0"
+  "command": "Urlscan.io/urlscan_analyzer.py",
+  "dockerImage": "urlscan.io:0.1.2",
+  "config": {
+    "service": "search"
+  },
+  "configurationItems": [
+    {
+      "name": "key",
+      "description": "Api Key",
+      "type": "string",
+      "multi": false,
+      "required": true
+    }
+  ]
+}
+,
+{
+  "name": "Urlscan.io_Search_Subrequests",
+  "author": "CTI_Marc",
+  "license": "MIT",
+  "url": "https://github.com/CTIMarc/Cortex-Analyzers",
+  "version": "0.1",
+  "baseConfig": "Urlscan.io",
+  "description": "Search a filter in subrequests",
+  "dataTypeList": [
+    "other"
+  ],
+  "command": "Urlscan.io/urlscan_analyzer.py",
+  "dockerImage": "urlscan.io:0.1",
+  "config": {
+    "service": "search_subrequests"
+  },
+  "configurationItems": [
+    {
+      "name": "key",
+      "description": "Api Key",
+      "type": "string",
+      "multi": false,
+      "required": true
+    }
+  ]
 }
 ,
 {
@@ -3553,9 +3714,70 @@
 }
 ,
 {
+  "name": "VirusTotal_DownloadSample",
+  "version": "3.1",
+  "author": "LDO-CERT",
+  "url": "https://github.com/TheHive-Project/Cortex-Analyzers",
+  "license": "AGPL-V3",
+  "description": "Use VirusTotal to download the original file for an hash.",
+  "dataTypeList": [
+    "hash"
+  ],
+  "baseConfig": "VirusTotal",
+  "config": {
+    "service": "download"
+  },
+  "configurationItems": [
+    {
+      "name": "key",
+      "description": "API private key for Virustotal",
+      "type": "string",
+      "multi": false,
+      "required": true
+    }
+  ],
+  "registration_required": true,
+  "subscription_required": true,
+  "service_homepage": "https://www.virustotal.com/",
+  "service_logo": {
+    "path": "assets/virustotal-logo.png",
+    "caption": "logo"
+  },
+  "command": "VirusTotal/virustotal.py",
+  "dockerImage": "virustotal:3.1"
+}
+,
+{
+  "name": "VirusTotal_File_Relationship",
+  "version": "1.0",
+  "author": "CTI_Marc",
+  "url": "https://github.com/TheHive-Project/Cortex-Analyzers",
+  "license": "AGPL-V3",
+  "description": "Use VirusTotal to get File Relationships",
+  "dataTypeList": [
+    "hash"
+  ],
+  "baseConfig": "VirusTotal",
+  "config": {
+    "service": "relationships"
+  },
+  "configurationItems": [
+    {
+      "name": "key",
+      "description": "API key for Virustotal",
+      "type": "string",
+      "multi": false,
+      "required": true
+    }
+  ],
+  "command": "VirusTotal/virustotal.py",
+  "dockerImage": "virustotal:1.0"
+}
+,
+{
   "name": "VirusTotal_GetReport",
-  "version": "3.0",
-  "author": "CERT-BDF",
+  "version": "3.1",
+  "author": "CERT-BDF, StrangeBee",
   "url": "https://github.com/TheHive-Project/Cortex-Analyzers",
   "license": "AGPL-V3",
   "description": "Get the latest VirusTotal report for a file, hash, domain or an IP address.",
@@ -3563,9 +3785,12 @@
     "file",
     "hash",
     "domain",
+    "fqdn",
     "ip",
     "url"
   ],
+  "command": "VirusTotal/virustotal.py",
+  "dockerImage": "virustotal:3.1",
   "baseConfig": "VirusTotal",
   "config": {
     "service": "get"
@@ -3585,15 +3810,119 @@
       "multi": false,
       "required": false,
       "defaultValue": 60
+    },
+    {
+      "name": "rescan_hash_older_than_days",
+      "description": "Rescan hash observable if report is older than selected days",
+      "type": "number",
+      "multi": false,
+      "required": false,
+      "defaultValue": 30
+    },
+    {
+      "name": "highlighted_antivirus",
+      "description": "Add taxonomy if selected AV don't recognize observable",
+      "type": "string",
+      "multi": true,
+      "required": false
+    },
+    {
+      "name": "download_sample",
+      "description": "Download automatically sample as observable when looking for hash",
+      "type": "boolean",
+      "multi": false,
+      "required": false
+    },
+    {
+      "name": "download_sample_if_highlighted",
+      "description": "Download automatically sample as observable if highlighted antivirus didn't recognize",
+      "type": "boolean",
+      "multi": false,
+      "required": false
     }
   ],
-  "dockerImage": "cortexneurons/virustotal_getreport:3"
+  "registration_required": true,
+  "subscription_required": false,
+  "service_homepage": "https://www.virustotal.com/",
+  "service_logo": {
+    "path": "assets/virustotal-logo.png",
+    "caption": "logo"
+  },
+  "screenshots": [
+    {
+      "path": "assets/virustotal-scan.png",
+      "caption": "VirusTotal: long report"
+    }
+  ]
+}
+,
+{
+  "name": "VirusTotal_Rescan",
+  "version": "3.1",
+  "author": "CERT-LDO",
+  "url": "https://github.com/TheHive-Project/Cortex-Analyzers",
+  "license": "AGPL-V3",
+  "description": "Use VirusTotal to run new analysis on hash.",
+  "dataTypeList": [
+    "hash"
+  ],
+  "baseConfig": "VirusTotal",
+  "config": {
+    "service": "rescan"
+  },
+  "configurationItems": [
+    {
+      "name": "key",
+      "description": "API key for Virustotal",
+      "type": "string",
+      "multi": false,
+      "required": true
+    },
+    {
+      "name": "polling_interval",
+      "description": "Define time interval between two requests attempts for the report",
+      "type": "number",
+      "multi": false,
+      "required": false,
+      "defaultValue": 60
+    },
+    {
+      "name": "highlighted_antivirus",
+      "description": "Add taxonomy if selected AV don't recognize observable",
+      "type": "string",
+      "multi": true,
+      "required": false
+    },
+    {
+      "name": "download_sample",
+      "description": "Download automatically sample as observable when looking for hash",
+      "type": "boolean",
+      "multi": false,
+      "required": false
+    },
+    {
+      "name": "download_sample_if_highlighted",
+      "description": "Download automatically sample as observable if highlighted antivirus didn't recognize",
+      "type": "boolean",
+      "multi": false,
+      "required": false
+    }
+  ],
+  "registration_required": true,
+  "subscription_required": true,
+  "service_homepage": "https://www.virustotal.com/",
+  "service_logo": {
+    "path": "assets/virustotal-logo.png",
+    "caption": "logo"
+  },
+  "command": "VirusTotal/virustotal.py",
+  "dockerImage": "virustotal:3.1"
 }
 ,
 {
   "name": "VirusTotal_Scan",
-  "version": "3.0",
-  "author": "CERT-BDF",
+  "version": "3.1",
+  "author": "CERT-BDF, StrangeBee",
   "url": "https://github.com/TheHive-Project/Cortex-Analyzers",
   "license": "AGPL-V3",
   "description": "Use VirusTotal to scan a file or URL.",
@@ -3620,9 +3949,51 @@
       "multi": false,
       "required": false,
       "defaultValue": 60
+    },
+    {
+      "name": "highlighted_antivirus",
+      "description": "Add taxonomy if selected AV don't recognize observable",
+      "type": "string",
+      "multi": true,
+      "required": false
     }
   ],
-  "dockerImage": "cortexneurons/virustotal_scan:3"
+  "registration_required": true,
+  "subscription_required": false,
+  "service_homepage": "https://www.virustotal.com/",
+  "service_logo": {
+    "path": "assets/virustotal-logo.png",
+    "caption": "logo"
+  },
+  "command": "VirusTotal/virustotal.py",
+  "dockerImage": "virustotal:3.1"
+}
+,
+{
+  "name": "VirusTotal_Search",
+  "version": "1.0",
+  "author": "CTI_Marc",
+  "url": "https://github.com/TheHive-Project/Cortex-Analyzers",
+  "license": "AGPL-V3",
+  "description": "Use VirusTotal to search.",
+  "dataTypeList": [
+    "other"
+  ],
+  "baseConfig": "VirusTotal",
+  "config": {
+    "service": "search"
+  },
+  "configurationItems": [
+    {
+      "name": "key",
+      "description": "API key for Virustotal",
+      "type": "string",
+      "multi": false,
+      "required": true
+    }
+  ],
+  "command": "VirusTotal/virustotal.py",
+  "dockerImage": "virustotal:1.0"
 }
 ,
 {

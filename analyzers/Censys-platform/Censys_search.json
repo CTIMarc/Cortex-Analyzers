@@ -8,6 +8,7 @@
   "dataTypeList": ["other","ip","domain"],
   "baseConfig": "Censys Platform",
   "command": "Censys-platform/censys_search.py",
+  "dockerImage": "censys-platform:1.0",
   "configurationItems": [
     {
       "name": "oid",

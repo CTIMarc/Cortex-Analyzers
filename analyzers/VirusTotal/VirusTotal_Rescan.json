@@ -55,5 +55,6 @@
     "path": "assets/virustotal-logo.png",
     "caption": "logo"
   },
-  "command": "VirusTotal/virustotal.py"
+  "command": "VirusTotal/virustotal.py",
+  "dockerImage": "virustotal:3.1"
 }

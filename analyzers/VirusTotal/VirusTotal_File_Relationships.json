@@ -19,5 +19,6 @@
       "required": true
     }
   ],
-  "command": "VirusTotal/virustotal.py"
+  "command": "VirusTotal/virustotal.py",
+  "dockerImage": "virustotal:1.0"
 }

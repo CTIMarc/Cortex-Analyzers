@@ -7,6 +7,7 @@
   "description": "Scan URLs on urlscan.io",
   "dataTypeList": ["url", "domain", "fqdn"],
   "command": "Urlscan.io/urlscan_analyzer.py",
+  "dockerImage": "urlscan.io:0.1.0",
   "baseConfig": "Urlscan.io",
   "config": {
     "service":"scan"
