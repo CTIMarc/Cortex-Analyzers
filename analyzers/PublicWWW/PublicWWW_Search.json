@@ -8,6 +8,7 @@
   "description": "Search pattern on publicWWW",
   "dataTypeList": ["other"],
   "command": "PublicWWW/publicwww_analyzer.py",
+  "dockerImage": "publicwww:0.1.1",
   "configurationItems": [
     {
       "name": "api_key",

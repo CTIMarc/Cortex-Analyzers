@@ -17,6 +17,10 @@ class CurstomProxy(Analyzer):
             None,
             "No base URL configuration in Cortex.",
         )
+        # the request url is built by plain concatenation below, so tolerate a
+        # base url configured without its trailing slash
+        if not self.base_url.endswith("/"):
+            self.base_url += "/"
 
     def do_request(self, method, module, url, headers, post_data, post_data_hex):
         try:

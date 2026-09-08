@@ -7,6 +7,7 @@
   "description": "Retrieve ip reverse DNS resolutions on Shodan.",
   "dataTypeList": ["ip"],
   "command": "Shodan/shodan_analyzer.py",
+  "dockerImage": "shodan:1.0",
   "baseConfig": "Shodan",
   "config": {
       "service": "reverse_dns"

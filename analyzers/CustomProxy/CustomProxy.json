@@ -10,6 +10,7 @@
   "description": "Query a custom proxy",
   "dataTypeList": ["url"],
   "command": "CustomProxy/custom_proxy.py",
+  "dockerImage": "customproxy:1.0",
   "configurationItems": [
     {
       "name": "base_url",
