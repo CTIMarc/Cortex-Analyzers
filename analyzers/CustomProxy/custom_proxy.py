@@ -24,6 +24,7 @@ class CurstomProxy(Analyzer):
 
     def do_request(self, method, module, url, headers, post_data, post_data_hex):
         try:
+            data = None
             if method == "GET":
                 req = requests.get(
                     self.base_url + module + "/" + url, headers=headers, timeout=30

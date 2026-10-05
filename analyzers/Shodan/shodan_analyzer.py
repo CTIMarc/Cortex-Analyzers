@@ -34,7 +34,10 @@ class ShodanAnalyzer(Analyzer):
             results = {'records': self.shodan_client.reverse_dns(data)}
             return results
         elif self.service == 'search':
-            page = self.get_param('parameters.page', 1, None)
+            try:
+                page = int(self.get_param('parameters.page', 1, None))
+            except (TypeError, ValueError):
+                self.error("Invalid parameters.page, an integer is expected")
             results = {'records': self.shodan_client.search(data, page)}
             return results
         elif self.service == 'info_domain':
@@ -50,43 +53,46 @@ class ShodanAnalyzer(Analyzer):
         namespace = "Shodan"
         predicate = "Location"
         if self.service in ['host', 'host_history']:
-            if 'country_name' in raw['host']:
-                value = raw['host']['country_name']
+            host = raw.get('host') or {}
+            if 'country_name' in host:
+                value = host['country_name']
                 taxonomies.append(self.build_taxonomy(level, namespace, predicate, value))
-            if 'org' in raw['host']:
-                taxonomies.append(self.build_taxonomy(level, namespace, 'Org', raw['host']['org']))
-            if 'asn' in raw['host']:
-                taxonomies.append(self.build_taxonomy(level, namespace, 'ASN', raw['host']['asn']))
-            if 'vulns' in raw['host']:
-                totalcve = len(raw['host']['vulns'])
+            if 'org' in host:
+                taxonomies.append(self.build_taxonomy(level, namespace, 'Org', host['org']))
+            if 'asn' in host:
+                taxonomies.append(self.build_taxonomy(level, namespace, 'ASN', host['asn']))
+            if 'vulns' in host:
+                totalcve = len(host['vulns'])
                 if totalcve < 3: 
-                  taxonomies.append(self.build_taxonomy(levelorange, namespace, 'VULNS', raw['host']['vulns']))
+                  taxonomies.append(self.build_taxonomy(levelorange, namespace, 'VULNS', host['vulns']))
                 else:
                   taxonomies.append(self.build_taxonomy(levelorange, namespace, 'VULNS', totalcve))
         elif self.service == 'info_domain':
-            if 'ips' in raw['info_domain']:
-                value = "{}".format(len(raw['info_domain']['ips']))
+            info_domain = raw.get('info_domain') or {}
+            if 'ips' in info_domain:
+                value = "{}".format(len(info_domain['ips']))
                 taxonomies.append(self.build_taxonomy(level, namespace, 'IPs', value))
-            if 'all_domains' in raw['info_domain']:
-                value = "{}".format(len(raw['info_domain']['all_domains']))
+            if 'all_domains' in info_domain:
+                value = "{}".format(len(info_domain['all_domains']))
                 taxonomies.append(self.build_taxonomy(level, namespace, 'Domains', value))
-            if 'asn' in raw['info_domain']:
-                value = "{}".format(len(raw['info_domain']['asn']))
+            if 'asn' in info_domain:
+                value = "{}".format(len(info_domain['asn']))
                 taxonomies.append(self.build_taxonomy(level, namespace, 'ASNs', value))
-            if 'isp' in raw['info_domain']:
-                value = "{}".format(len(raw['info_domain']['isp']))
+            if 'isp' in info_domain:
+                value = "{}".format(len(info_domain['isp']))
                 taxonomies.append(self.build_taxonomy(level, namespace, 'ISPs', value))
         elif self.service == 'dns_resolve':
-            value = "{}".format(len(raw['records']))
+            value = "{}".format(len(raw.get('records') or {}))
             taxonomies.append(self.build_taxonomy(level, namespace, 'DNS resolutions', value))
         elif self.service == 'reverse_dns':
+            records = raw.get('records') or {}
             nb_domains = 0
-            for k in raw['records'].keys():
-                nb_domains += len(raw['records'][k])
-            value = "{}".format(len(nb_domains))
+            for k in records.keys():
+                nb_domains += len(records[k] or [])
+            value = "{}".format(nb_domains)
             taxonomies.append(self.build_taxonomy(level, namespace, 'Reverse DNS resolutions', value))
         elif self.service == 'search':
-            value = "{}".format(raw['records']['total'])
+            value = "{}".format((raw.get('records') or {}).get('total', 0))
             taxonomies.append(self.build_taxonomy(level, namespace, 'Hosts', value))
         return {'taxonomies': taxonomies}
 

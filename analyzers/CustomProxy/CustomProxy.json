@@ -5,8 +5,6 @@
   "url": "https://github.com/CTIMarc/Cortex-Analyzers",
   "version": "1.0",
   "baseConfig": "CustomProxy",
-  "config": {
-  },
   "description": "Query a custom proxy",
   "dataTypeList": ["url"],
   "command": "CustomProxy/custom_proxy.py",
