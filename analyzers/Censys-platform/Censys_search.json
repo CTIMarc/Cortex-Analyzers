@@ -5,7 +5,7 @@
   "license": "AGPL-V3",
   "url": "https://github.com/CTIMarc/Cortex-Analyzers/tree/master/analyzers/Censys-platform",
   "description": "Search pattern in Censys platform",
-  "dataTypeList": ["other","ip","domain"],
+  "dataTypeList": ["other"],
   "baseConfig": "Censys Platform",
   "command": "Censys-platform/censys_search.py",
   "dockerImage": "censys-platform:1.0",
