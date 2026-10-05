@@ -7,8 +7,13 @@ import time
 regex_search_after = "\\d{13},[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}"
 
 
+TIMEOUT = 30
+
+
 class UrlscanException(Exception):
-    pass
+    def __init__(self, message, status_code=None):
+        super().__init__(message)
+        self.status_code = status_code
 
 
 class Urlscan:
@@ -25,18 +30,18 @@ class Urlscan:
                        }
         else:
             payload = {"q": self.query}
-        r = requests.get("https://urlscan.io/api/v1/search/", params=payload, verify=False, headers=self.headers)
+        r = requests.get("https://urlscan.io/api/v1/search/", params=payload, headers=self.headers, timeout=TIMEOUT)
         if r.status_code == 200:
             return r.json()
         else:
-            raise UrlscanException("urlscan.io returns %s" % r.status_code)
+            raise UrlscanException("urlscan.io returns %s" % r.status_code, r.status_code)
 
     def result(self, result_id):
-        r = requests.get(f"https://urlscan.io/api/v1/result/{result_id}/", headers=self.headers)
+        r = requests.get(f"https://urlscan.io/api/v1/result/{result_id}/", headers=self.headers, timeout=TIMEOUT)
         if r.status_code == 200:
             return r.json()
         else:
-            raise UrlscanException("urlscan.io returns %s" % r.status_code)
+            raise UrlscanException("urlscan.io returns %s" % r.status_code, r.status_code)
 
     def scan(self, api_key):
         headers = {
@@ -45,7 +50,7 @@ class Urlscan:
         }
         data = '{"url": %s, "public": "on"}' % self.query
         r = requests.post(
-            "https://urlscan.io/api/v1/scan/", headers=headers, data=data, verify=False
+            "https://urlscan.io/api/v1/scan/", headers=headers, data=data, timeout=TIMEOUT
         )
         if r.status_code == 200:
             submission_url = r.json()["api"]
@@ -53,7 +58,7 @@ class Urlscan:
             finished = False
             tries = 0
             while tries <= 15:
-                submission_req = requests.get(submission_url)
+                submission_req = requests.get(submission_url, timeout=TIMEOUT)
                 if submission_req.status_code == 200:
                     return submission_req.json()
                 tries += 1

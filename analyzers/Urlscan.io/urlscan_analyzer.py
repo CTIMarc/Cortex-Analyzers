@@ -73,7 +73,7 @@ class UrlscanAnalyzer(Analyzer):
                     search_after = self.get_param('parameters.search_after', None, None)
                     self.report({
                         'type': self.data_type,
-                        'query': query + ". Search after: " + str(search_after),
+                        'query': query,
                         'indicator': self.search(query, self.api_key, search_after=search_after)
                     })
             except UrlscanException as err:
@@ -84,11 +84,19 @@ class UrlscanAnalyzer(Analyzer):
                 if self.data_type in targets:
                     filter_type = self.get_param('parameters.rtype', "pattern", None)
                     rfilter = self.get_param('parameters.filter', None, None)
+                    if filter_type not in ('pattern', 'jmespath'):
+                        self.error("Invalid parameters.rtype '{}', expected 'pattern' or 'jmespath'".format(filter_type))
                     search_json = self.search(query, self.api_key)
                     matches = []
 
                     for result in search_json["results"]:
-                        result_json = self.result(result['_id'], self.api_key)
+                        try:
+                            result_json = self.result(result['_id'], self.api_key)
+                        except UrlscanException as err:
+                            # scan deleted or not available anymore, skip it
+                            if err.status_code == 404:
+                                continue
+                            raise
                         res = process_result(result_json, filter_type, rfilter)
 
                         scan_date = result['task']['time']

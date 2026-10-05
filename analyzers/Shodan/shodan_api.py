@@ -4,9 +4,21 @@ from urllib.parse import urljoin
 import requests
 
 
+TIMEOUT = 30
+
+
+class TimeoutSession(requests.Session):
+    """Session applying a default timeout, the shodan library sets none."""
+
+    def request(self, *args, **kwargs):
+        kwargs.setdefault('timeout', TIMEOUT)
+        return super().request(*args, **kwargs)
+
+
 class ShodanAPIPublic(Shodan):
     def __init__(self, api_key):
         Shodan.__init__(self, api_key)
+        self._session = TimeoutSession()
 
     def host(self, ips, history=False, minify=False):
 
@@ -36,13 +48,13 @@ class ShodanAPIPublic(Shodan):
 
     def dns_resolve(self, domain):
         payload = {'hostnames': [domain], 'key': self.api_key}
-        r = requests.get(urljoin(self.base_url, 'dns/resolve'), params=payload)
+        r = requests.get(urljoin(self.base_url, 'dns/resolve'), params=payload, timeout=TIMEOUT)
         if r.status_code == requests.codes.ok:
             return r.json()
 
     def reverse_dns(self, ip):
         payload = {'ips': [ip], 'key': self.api_key}
-        r = requests.get(urljoin(self.base_url, 'dns/reverse'), params=payload)
+        r = requests.get(urljoin(self.base_url, 'dns/reverse'), params=payload, timeout=TIMEOUT)
         if r.status_code == requests.codes.ok:
             result = r.json()
             if not result[ip]:
