@@ -4,7 +4,10 @@ import re
 import json
 import time
 
-regex_search_after = "\\d{13},[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}"
+# Accept any UUID version: urlscan now mints UUIDv7 scan ids (3rd group starts
+# with 7), which the old v4-only pattern ("4xxx-[89ab]xxx") rejected, silently
+# breaking search_after pagination.
+regex_search_after = "\\d{13},[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
 
 
 TIMEOUT = 30
